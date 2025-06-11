@@ -8,6 +8,7 @@ from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 
 from world import *
+from settings import *
 
 class Game:
     def __init__(self, ev3):
@@ -15,8 +16,10 @@ class Game:
         self.w = World(self.ev3)
         self.state = "game"
         
+        
 
     def draw(self):
+
         self.ev3.screen.clear()
         if self.state == "game":
             self.w.draw(self.ev3.screen)
@@ -34,7 +37,8 @@ class Game:
     def checkGameOver(self):
         if self.w.checkGameOver():
             self.state = "game over"
-            self.ev3.speaker.beep(20)
+            if BEEP_ON:
+                self.ev3.speaker.beep(20)
 
     def onTick(self):
         self.control()
